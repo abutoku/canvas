@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>drow</title>
+</head>
+<body>
+
+  <canvas id="canvas" width="500" height="300"></canvas>
+  
+<!-- jquery読み込み -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+  const can = $('#canvas')[0]; //キャンバスそのものを変数
+  const ctx = can.getContext("2d");//canに対してgetContext関数を実行し書き込み権限を与える
+
+  //パスの開始
+    ctx.beginPath();
+
+    //新しい始点の座標
+    //ctx.moveTo(開始横軸,開始縦軸);
+
+    //新しい終点の座標
+    //ctx.lineTo(終了横軸,終了縦軸);
+    //線を書く
+    //ctx.stroke();
+
+    //ctx.closePath();
+
+
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = '10';
+    ctx.lineCap = 'round';//round 丸い square 四角
+
+    ctx.beginPath();
+    ctx.moveTo(20, 0);
+    ctx.lineTo(100, 100);
+
+    ctx.stroke();
+    //パスをとじる
+    ctx.closePath();
+
+
+</script>
+
+  
+</body>
+</html>

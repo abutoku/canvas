@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas</title>
+</head>
+
+<body>
+  <!-- jquery読み込み -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <canvas id="canvas" width="500" height="300"></canvas>
+  <script>
+    const can = $('#canvas')[0]; //キャンバスそのものを変数
+    const ctx = can.getContext("2d");//canに対してgetContext関数を実行し書き込み権限を与える
+
+    //文字の入れ方
+    //カラー指定
+    ctx.fillStyle = "#ff0000";
+    //fontサイズ、書式
+    ctx.font = "20px _sans";
+    //文字の設置位置
+    ctx.textBaseline = "top"; //top,middle,bottom...
+    //表示文字と座標
+    ctx.fillText("Hello World!", 100, 100);//ctx.fillText("文字列",x,y);
+
+    //短形を描画
+
+    //パスの開始
+    ctx.beginPath();
+
+    //取得したコンテキストで短形を描写
+    ctx.rect(50, 100, 100, 60);//設定をセットしている
+    ctx.stroke();//実際に書く関数
+
+    //指示形態は以下の通り
+    //Rect(座標、幅と高さ)
+
+    ctx.beginPath();
+    //塗りつぶす場合
+    ctx.fillStyle = "#ff0000";
+    ctx.rect(10, 10, 40, 40);
+    ctx.stroke();//実際に書く関数(枠線)
+    ctx.fill();  //塗りつぶす場合fillを使用
+
+    ctx.beginPath();
+
+    //取得したコンテキストで円を描写
+    ctx.arc(100,100,50,0,Math.PI*2,false); //座標は円の中心
+
+    //指示形態は以下の通り
+    //Rect(座標、半径、円のスタート度、エンド度（描画）、回転)
+    ctx.fillStyle = "#ff0000";
+    ctx.fill();
+    ctx.lineWidth = 50;
+    ctx.strokeStyle = '#777'
+    ctx.stroke();
+    
+
+
+
+  </script>
+</body>
+
+</html>

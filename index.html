@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas</title>
+</head>
+<body>
+  <h1>Canvas</h1>
+  <nav>
+
+    <!-- 色の変更 -->
+    色選択<input type="color" id="color">
+    <!-- 先の太さ -->
+    ペンの太さ<input type="range" id="line" min="1" max="50" value="5" step="1">
+    <button id="clear_btn">クリア</button>
+  </nav>
+
+    <canvas id="canvas" width="500" height="500" style="border:1px solid blue;"></canvas>
+    
+    <!-- jquery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  
+</body>
+
+<script>
+  //初期化（変数letで宣言）
+  let canvas_mouse_event = false; //スイッチ[ true=線を引く、false=線は引かない]
+  let oldX = 0; //一つ前の座標を代入するための変数
+  let oldY = 0; //一つ前の座標を代入するための変数
+  let bold_line = 5; //ラインの太さをここで指定
+  let color = "#000"; //ラインの太さをここで指定
+
+  //キャンバスを操作するための設定
+  const can = $('#canvas')[0]; //キャンバスそのものを変数
+  const ctx = can.getContext("2d");//canに対してgetContext関数を実行し書き込み権限を与える
+
+  $(can).on("mousedown",function(e){ //マウスが押されたら
+    oldX = e.offsetX; //開始位置の横軸を変数に代入
+    oldY = e.offsetY; //開始位置の縦軸を変数に代入
+    canvas_mouse_event = true; //スイッチオン
+  });
+
+  //新しい始点の座標
+    //ctx.moveTo(開始横軸,開始縦軸);
+    //新しい終点の座標
+    //ctx.lineTo(終了横軸,終了縦軸);
+    //線を書く
+    //ctx.stroke();
+
+    //ctx.closePath();
+
+  $(can).on("mousemove",function(e){  //マウスが動くと発動
+    
+    if(canvas_mouse_event === true) { //スイッチがオンなら
+      
+      const px = e.offsetX; //現在地点の横軸を変数に代入
+      const py = e.offsetY; //現在地点の縦軸を変数に代入
+      ctx.strokeStyle = color; //色
+      ctx.lineWidth = bold_line; //大きさ
+      ctx.lineJoin = "round"; 
+      ctx.lineCap = "round"; //ペン先の形
+      ctx.beginPath(); //パスの開始
+      ctx.moveTo(oldX,oldY); //開始始点から
+      ctx.lineTo(px,py); //現在地点まで
+      ctx.stroke(); //線を描写
+      oldX =px; //開始地点の入れ替え
+      oldY =py; //開始地点の入れ替え
+    }
+    
+    
+  });
+
+  $(can).on("mouseup", function (e) { //マウスが上がったら
+      canvas_mouse_event = false; //スイッチオフ
+    });
+
+  $(can).mouseleave(function () {//マウスがキャンバスから離れたら
+      canvas_mouse_event = false;//スイッチオフ
+    });
+    
+  $('#clear_btn').on("click",function(){ //クリアボタンが押されたら
+    ctx.closePath();
+    ctx.clearRect(0,0,can.width,can.height); //クリア
+  })
+
+  //色変更
+    $('#color').on('change', function () { //カラーが変更されたら
+      color = $('#color').val(); //入力値をcolorに設定     
+    })
+    
+    //ラインを変更
+    $('#line').on('change', function () { //ラインが変更されたら
+      bold_line = $('#line').val(); //入力値をbold_lineに代入
+    })
+
+  //パスの開始
+  ctx.beginPath();
+
+</script>
+</html>
